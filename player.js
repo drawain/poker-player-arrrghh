@@ -56,7 +56,7 @@ module.exports = {
       console.log('EXCEPTION', e);
     }
 
-    return gameState.current_buy_in - player.bet;
+    respond(gameState.current_buy_in - player.bet);
   },
 
   showdown: function(gameState) {
