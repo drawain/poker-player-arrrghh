@@ -3,7 +3,7 @@ var Hand = require('./hand');
 
 module.exports = {
 
-  VERSION: "GrandMaster Level 2 RefactorMaster",
+  VERSION: "GrandMaster Level 2 RefactorMaster Fixed",
 
   bet_request: function(gameState, response) {
     try {
@@ -17,7 +17,7 @@ module.exports = {
       };
 
       var respond = function(message) {
-        response.send(200, message);
+        response.send(200, message.toString());
       };
 
       var getPreFlopBet = function(gameState, player, hand) {
