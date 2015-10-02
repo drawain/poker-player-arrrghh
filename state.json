@@ -34,11 +34,11 @@
       "bet": 20,
       "hole_cards": [
         {
-          "rank": "Q",
+          "rank": "5",
           "suit": "clubs"
         },
         {
-          "rank": "9",
+          "rank": "3",
           "suit": "clubs"
         }
       ],
@@ -58,18 +58,7 @@
   "orbits": 1,
   "dealer": 1,
   "community_cards": [
-    {
-      "rank": "9",
-      "suit": "diamonds"
-    },
-    {
-      "rank": "10",
-      "suit": "hearts"
-    },
-    {
-      "rank": "9",
-      "suit": "spades"
-    }
+
   ],
   "current_buy_in": 20,
   "pot": 40,
