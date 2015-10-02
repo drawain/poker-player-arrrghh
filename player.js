@@ -3,7 +3,7 @@ var Hand = require('./hand');
 
 module.exports = {
 
-  VERSION: "GrandMaster Level 2 RefactorMaster Fixed",
+  VERSION: "GrandMaster Level 3",
 
   bet_request: function(gameState, response) {
     var respond = function(message) {
@@ -35,9 +35,9 @@ module.exports = {
       };
 
       var getPreFlopBet = function(gameState, player, hand) {
-        var notFirstLicit = player.bet > (gameState.small_blind * 2);
+        var betGreaterThanBigBlind = player.bet > (gameState.small_blind * 2);
 
-        if (notFirstLicit) {
+        if (betGreaterThanBigBlind) {
           if (betToCall > (player.stack/2)) return 0;
         }
 
@@ -62,7 +62,7 @@ module.exports = {
           return gameState.minimum_raise * 10;
         }
 
-        if (player.bet > 0) {
+        if (player.bet > 0 && betToCall < (player.stack/2)) {
           return betToCall;
         }
 
