@@ -9,7 +9,16 @@ describe('Player stability', function() {
   //});
 
   it('is stable', function() {
-    expect(player.bet_request(state)).to.eql(0);
+    var responseMessage;
+    var responseMock = {
+      send: function(code, message) {
+        responseMessage = message;
+      }
+    };
+
+    player.bet_request(state, responseMock);
+
+    expect(responseMessage).to.eql(0);
   });
 
 });

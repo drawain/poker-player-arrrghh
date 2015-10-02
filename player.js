@@ -1,10 +1,11 @@
+var request = require('superagent');
 var Hand = require('./hand');
 
 module.exports = {
 
   VERSION: "GrandMaster Level 2 RefactorMaster",
 
-  bet_request: function(gameState) {
+  bet_request: function(gameState, response) {
     try {
       console.log('Actual game state', JSON.stringify(gameState, null, 4));
 
@@ -15,6 +16,9 @@ module.exports = {
         return gameState.community_cards.length === 0;
       };
 
+      var respond = function(message) {
+        response.send(200, message);
+      };
 
       var getPreFlopBet = function(gameState, player, hand) {
         if (hand.rankIsSame() && hand.rankHasBiggerThan(7)) {
@@ -42,9 +46,9 @@ module.exports = {
 
 
       if (isPreFlop(gameState)) {
-        return getPreFlopBet(gameState, player, new Hand(hand));
+        respond(getPreFlopBet(gameState, player, new Hand(hand)));
       } else {
-        return gameState.current_buy_in - player.bet;
+        respond(gameState.current_buy_in - player.bet);
       }
 
 
@@ -57,5 +61,16 @@ module.exports = {
 
   showdown: function(gameState) {
     //console.log('Showdown', JSON.stringify(gameState, null, 4));
+  },
+
+
+  fetchHandRank: function (hand, community_cards, callback) {
+    var cards = hand.concat(community_cards);
+    request
+        .get('http://rainman.leanpoker.org/rank')
+        .send('cards=' + JSON.stringify(cards))
+        .end(function (err, res) {
+          callback(JSON.parse(res.text));
+        });
   }
 };
