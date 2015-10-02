@@ -42,14 +42,15 @@ module.exports = {
       if (isPreFlop(gameState)) {
         return getPreFlopBet(gameState, player, new Hand(hand));
       } else {
-        return gameState.current_buy_in;
+        return gameState.current_buy_in - player.bet;
       }
 
 
     } catch (e) {
+      console.log('EXCEPTION', e);
     }
 
-    return 0;
+    return gameState.current_buy_in - player.bet;
   },
 
   showdown: function(gameState) {
