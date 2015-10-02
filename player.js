@@ -1,7 +1,7 @@
 
 module.exports = {
 
-  VERSION: "GrandMaster Level 2 Hyper",
+  VERSION: "GrandMaster Level 2 HardCore",
 
   bet_request: function(gameState) {
     try {
@@ -34,19 +34,19 @@ module.exports = {
 
 
       if (rankIsSame()) {
-        return gameState.minimum_raise * 4;
+        return gameState.minimum_raise * 40;
       }
 
       if (diffIsOne() && suiteIsSame()) {
-        return gameState.minimum_raise * 3;
+        return gameState.minimum_raise * 30;
       }
 
       if (diffIsOne()) {
-        return gameState.minimum_raise * 2;
+        return gameState.minimum_raise * 20;
       }
 
       if (suiteIsSame()) {
-        return gameState.minimum_raise;
+        return gameState.minimum_raise * 10;
       }
 
 
