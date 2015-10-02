@@ -1,7 +1,7 @@
 
 module.exports = {
 
-  VERSION: "GrandMaster Level 2 HardCore",
+  VERSION: "GrandMaster Level 2 SupaDupa",
 
   bet_request: function(gameState) {
     try {
@@ -9,6 +9,10 @@ module.exports = {
 
       var player = gameState.players[gameState.in_action];
       var hand = player.hole_cards;
+
+      var isPreFlop = function() {
+        return gameState.community_cards.length === 0;
+      };
 
       var getRankValue = function(card) {
         switch (card.rank) {
@@ -20,37 +24,41 @@ module.exports = {
         }
       };
 
-      var rankIsSame = function() {
+      var rankIsSame = function(hand) {
         return getRankValue(hand[0]) == getRankValue(hand[1]);
       };
 
-      var suiteIsSame = function() {
+      var suiteIsSame = function(hand) {
         return hand[0].suit == hand[1].suit;
       };
 
-      var diffIsOne = function() {
+      var diffIsOne = function(hand) {
         return Math.abs(getRankValue(hand[0]) - getRankValue(hand[1])) === 1;
       };
 
 
-      if (rankIsSame() && getRankValue(hand[0]) > 7) {
-        return player.stack;
-      }
+      if (isPreFlop()) {
+        if (rankIsSame(hand) && getRankValue(hand[0]) > 7) {
+          return player.stack;
+        }
 
-      if (rankIsSame()) {
-        return gameState.minimum_raise * 40;
-      }
+        if (rankIsSame(hand)) {
+          return gameState.minimum_raise * 40;
+        }
 
-      if (diffIsOne() && suiteIsSame()) {
-        return gameState.minimum_raise * 30;
-      }
+        if (diffIsOne(hand) && suiteIsSame(hand)) {
+          return gameState.minimum_raise * 30;
+        }
 
-      if (diffIsOne()) {
-        return gameState.minimum_raise * 20;
-      }
+        if (diffIsOne(hand)) {
+          return gameState.minimum_raise * 20;
+        }
 
-      if (suiteIsSame()) {
-        return gameState.minimum_raise * 10;
+        if (suiteIsSame(hand)) {
+          return gameState.minimum_raise * 10;
+        }
+      } else {
+        return gameState.current_buy_in - player.bet;
       }
 
 
@@ -59,7 +67,7 @@ module.exports = {
     return 0;
   },
 
-  showdown: function(game_state) {
-
+  showdown: function(gameState) {
+    console.log('Showdown', JSON.stringify(gameState, null, 4));
   }
 };
