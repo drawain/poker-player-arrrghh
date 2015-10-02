@@ -1,0 +1,79 @@
+{
+  "tournament_id": "560e35cce59615005d000013",
+  "game_id": "560e3ff8268a34000300001a",
+  "round": 7,
+  "players": [
+    {
+      "name": "KITT",
+      "stack": 0,
+      "status": "out",
+      "bet": 0,
+      "version": "Default PHP folding player",
+      "id": 0
+    },
+    {
+      "name": "Ecser",
+      "stack": 3960,
+      "status": "folded",
+      "bet": 0,
+      "version": "The most awesome player ever",
+      "id": 1
+    },
+    {
+      "name": "Aero Hurricanes",
+      "stack": 0,
+      "status": "out",
+      "bet": 0,
+      "version": "Default Ruby folding player",
+      "id": 2
+    },
+    {
+      "name": "ARRRGHH",
+      "stack": 50,
+      "status": "active",
+      "bet": 20,
+      "hole_cards": [
+        {
+          "rank": "Q",
+          "suit": "clubs"
+        },
+        {
+          "rank": "9",
+          "suit": "clubs"
+        }
+      ],
+      "version": "GrandMaster Level 1.2 SafeWay",
+      "id": 3
+    },
+    {
+      "name": "Happy Friday",
+      "stack": 950,
+      "status": "active",
+      "bet": 20,
+      "version": "iPlayer 1.0",
+      "id": 4
+    }
+  ],
+  "small_blind": 10,
+  "orbits": 1,
+  "dealer": 1,
+  "community_cards": [
+    {
+      "rank": "9",
+      "suit": "diamonds"
+    },
+    {
+      "rank": "10",
+      "suit": "hearts"
+    },
+    {
+      "rank": "9",
+      "suit": "spades"
+    }
+  ],
+  "current_buy_in": 20,
+  "pot": 40,
+  "in_action": 3,
+  "minimum_raise": 20,
+  "bet_index": 0
+}

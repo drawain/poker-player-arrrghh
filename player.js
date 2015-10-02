@@ -33,6 +33,10 @@ module.exports = {
       };
 
 
+      if (rankIsSame() && getRankValue(hand[0]) > 7) {
+        return player.stack;
+      }
+
       if (rankIsSame()) {
         return gameState.minimum_raise * 40;
       }
