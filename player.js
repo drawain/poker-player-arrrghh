@@ -1,11 +1,19 @@
 
 module.exports = {
 
-  VERSION: "Default JavaScript folding player",
+  VERSION: "GrandMaster Level 1",
 
-  bet_request: function(game_state) {
+  bet_request: function(gameState) {
     console.log('Actual game state', JSON.stringify(game_state, null, 4));
-    return 1000;
+
+    var player = gameState.players[gameState.in_action];
+    var hand = player.hole_cards;
+
+    if (hand[0].rank == hand[1].rank) {
+      return gameState.minimum_raise * 2;
+    }
+
+    return 0;
   },
 
   showdown: function(game_state) {
