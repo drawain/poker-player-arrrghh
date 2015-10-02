@@ -20,6 +20,8 @@ module.exports = {
         response.send(200, message.toString());
       };
 
+      var betToCall = gameState.current_buy_in - player.bet;
+
       var getPreFlopBet = function(gameState, player, hand) {
         if (hand.rankIsSame() && hand.rankHasBiggerThan(7)) {
           return player.stack;
@@ -42,7 +44,7 @@ module.exports = {
         }
 
         if (player.bet > 0) {
-          return gameState.current_buy_in - player.bet;
+          return betToCall;
         }
 
         return 0;
@@ -52,11 +54,16 @@ module.exports = {
       if (isPreFlop(gameState)) {
         respond(getPreFlopBet(gameState, player, new Hand(hand)));
       } else {
-        if (player.current_buy_in > 0) {
-          respond(0);
-        } else {
-          respond(gameState.current_buy_in - player.bet);
-        }
+        this.fetchHandRank(hand, gameState.community_cards, function(rankResponse) {
+          if (rankResponse.rank == 0) {
+            respond(0);
+          } else if (rankResponse.rank == 1) {
+            respond(betToCall);
+          } else {
+            respond(gameState.minimum_raise * 20);
+          }
+        });
+        respond(gameState.current_buy_in - player.bet);
       }
 
 
