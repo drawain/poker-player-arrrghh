@@ -35,6 +35,13 @@ module.exports = {
       };
 
       var getPreFlopBet = function(gameState, player, hand) {
+        var notFirstLicit = player.bet > (gameState.small_blind * 2);
+
+        if (notFirstLicit) {
+          if (betToCall > (player.stack/2)) return 0;
+        }
+
+
         if (hand.rankIsSame() && hand.rankHasBiggerThan(7)) {
           return player.stack;
         }
