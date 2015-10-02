@@ -1,7 +1,9 @@
 var player = require('./player');
 var express = require('express');
 var app = express();
+//var bodyParser = require('body-parser')();
 
+//app.use(bodyParser);
 app.use(express.json());
 app.use(express.urlencoded());
 
@@ -11,8 +13,8 @@ app.get('/', function(req, res){
 
 app.post('/', function(req, res){
   if(req.body.action == 'bet_request') {
-    res.send(200, '0');
-    //player.bet_request(JSON.parse(req.body.game_state), res);
+    //res.send(200, '0');
+    player.bet_request(JSON.parse(req.body.game_state), res);
 
     //res.send(200, player.bet_request(JSON.parse(req.body.game_state)).toString());
   } else if(req.body.action == 'showdown') {

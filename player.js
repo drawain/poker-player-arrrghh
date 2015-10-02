@@ -6,18 +6,19 @@ module.exports = {
   VERSION: "GrandMaster Level 2 RefactorMaster Fixed",
 
   bet_request: function(gameState, response) {
+    var respond = function(message) {
+      response.send(200, message.toString());
+    };
+
+    var player = gameState.players[gameState.in_action];
+
     try {
       console.log('Actual game state', JSON.stringify(gameState, null, 4));
 
-      var player = gameState.players[gameState.in_action];
       var hand = player.hole_cards;
 
       var isPreFlop = function(gameState) {
         return gameState.community_cards.length === 0;
-      };
-
-      var respond = function(message) {
-        response.send(200, message.toString());
       };
 
       var betToCall = gameState.current_buy_in - player.bet;
@@ -74,15 +75,14 @@ module.exports = {
             respond(gameState.minimum_raise * 20);
           }
         });
-        respond(gameState.current_buy_in - player.bet);
       }
 
 
     } catch (e) {
       console.log('EXCEPTION', e);
+      respond(gameState.current_buy_in - player.bet);
     }
 
-    respond(gameState.current_buy_in - player.bet);
   },
 
   showdown: function(gameState) {

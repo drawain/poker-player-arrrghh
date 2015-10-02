@@ -6,12 +6,10 @@ describe('GET /user', function() {
   it('respond with json', function (done) {
     request(app)
         .post('/')
-        .field('action', 'bet_request')
-        .field('game_state', JSON.stringify(state))
-        //.send(state)
+        .send({action: 'bet_request', 'game_state': JSON.stringify(state)})
         .expect(200)
         .end(function (err, res) {
-          console.log(res.body);
+          console.log(res.text);
           if (err) throw err;
           done();
         });
