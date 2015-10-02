@@ -22,6 +22,17 @@ module.exports = {
 
       var betToCall = gameState.current_buy_in - player.bet;
 
+      var fetchHandRank = function (hand, community_cards, callback) {
+        var cards = hand.concat(community_cards);
+        request
+            .get('http://rainman.leanpoker.org/rank')
+            .send('cards=' + JSON.stringify(cards))
+            .end(function (err, res) {
+              console.log("rainmain", res.text);
+              callback(JSON.parse(res.text));
+            });
+      };
+
       var getPreFlopBet = function(gameState, player, hand) {
         if (hand.rankIsSame() && hand.rankHasBiggerThan(7)) {
           return player.stack;
@@ -54,7 +65,7 @@ module.exports = {
       if (isPreFlop(gameState)) {
         respond(getPreFlopBet(gameState, player, new Hand(hand)));
       } else {
-        this.fetchHandRank(hand, gameState.community_cards, function(rankResponse) {
+        fetchHandRank(hand, gameState.community_cards, function(rankResponse) {
           if (rankResponse.rank == 0) {
             respond(0);
           } else if (rankResponse.rank == 1) {
@@ -76,17 +87,6 @@ module.exports = {
 
   showdown: function(gameState) {
     //console.log('Showdown', JSON.stringify(gameState, null, 4));
-  },
-
-
-  fetchHandRank: function (hand, community_cards, callback) {
-    var cards = hand.concat(community_cards);
-    request
-        .get('http://rainman.leanpoker.org/rank')
-        .send('cards=' + JSON.stringify(cards))
-        .end(function (err, res) {
-          console.log("rainmain", res.text);
-          callback(JSON.parse(res.text));
-        });
   }
+
 };
