@@ -11,7 +11,8 @@ app.get('/', function(req, res){
 
 app.post('/', function(req, res){
   if(req.body.action == 'bet_request') {
-    player.bet_request(JSON.parse(req.body.game_state), res);
+    res.send(200, '0');
+    //player.bet_request(JSON.parse(req.body.game_state), res);
 
     //res.send(200, player.bet_request(JSON.parse(req.body.game_state)).toString());
   } else if(req.body.action == 'showdown') {
@@ -28,4 +29,6 @@ app.post('/', function(req, res){
 port = parseInt(process.env['PORT'] || 1337);
 host = "0.0.0.0";
 app.listen(port, host);
-console.log('Listening at http://' + host + ':' + port)
+console.log('Listening at http://' + host + ':' + port);
+
+module.exports = app;
