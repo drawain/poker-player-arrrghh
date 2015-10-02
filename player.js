@@ -1,7 +1,7 @@
 
 module.exports = {
 
-  VERSION: "GrandMaster Level 1.2 SafeWay",
+  VERSION: "GrandMaster Level 2 Hyper",
 
   bet_request: function(gameState) {
     try {
@@ -20,17 +20,32 @@ module.exports = {
         }
       };
 
+      var rankIsSame = function() {
+        return getRankValue(hand[0]) == getRankValue(hand[1]);
+      };
 
-      if (getRankValue(hand[0]) == getRankValue(hand[1])) {
+      var suiteIsSame = function() {
+        return hand[0].suit == hand[1].suit;
+      };
+
+      var diffIsOne = function() {
+        return Math.abs(getRankValue(hand[0]) - getRankValue(hand[1])) === 1;
+      };
+
+
+      if (rankIsSame()) {
+        return gameState.minimum_raise * 4;
+      }
+
+      if (diffIsOne() && suiteIsSame()) {
         return gameState.minimum_raise * 3;
       }
 
-      if (Math.abs(getRankValue(hand[0]) - getRankValue(hand[1])) === 1) {
+      if (diffIsOne()) {
         return gameState.minimum_raise * 2;
       }
 
-
-      if (hand[0].suit == hand[1].suit) {
+      if (suiteIsSame()) {
         return gameState.minimum_raise;
       }
 
