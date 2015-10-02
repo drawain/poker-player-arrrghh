@@ -85,6 +85,7 @@ module.exports = {
         .get('http://rainman.leanpoker.org/rank')
         .send('cards=' + JSON.stringify(cards))
         .end(function (err, res) {
+          console.log("rainmain", res.text);
           callback(JSON.parse(res.text));
         });
   }
