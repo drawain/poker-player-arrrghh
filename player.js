@@ -36,6 +36,8 @@ module.exports = {
         if (hand.suiteIsSame()) {
           return gameState.minimum_raise * 10;
         }
+
+        return gameState.current_buy_in - player.bet;
       };
 
 
