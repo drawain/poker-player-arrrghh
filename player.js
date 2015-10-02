@@ -1,5 +1,6 @@
 var request = require('superagent');
 var Hand = require('./hand');
+var _ = require('lodash');
 
 module.exports = {
 
@@ -69,6 +70,12 @@ module.exports = {
         return 0;
       };
 
+      var isThereAPair = function(cards) {
+        var ranks = cards.map(function(card) { return card.rank; });
+        var uniqueRanks = _.uniq(ranks);
+        return ranks.length != uniqueRanks.length;
+      };
+
 
       if (isPreFlop(gameState)) {
         respond(getPreFlopBet(gameState, player, new Hand(hand)));
@@ -77,7 +84,11 @@ module.exports = {
           if (rankResponse.rank == 0) {
             respond(0);
           } else if (rankResponse.rank == 1) {
-            respond(betToCall);
+            if (isThereAPair(gameState.community_cards)) {
+              respond(0);
+            } else {
+              respond(betToCall);
+            }
           } else {
             respond(gameState.minimum_raise * 20);
           }
