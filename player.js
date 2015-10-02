@@ -41,14 +41,22 @@ module.exports = {
           return gameState.minimum_raise * 10;
         }
 
-        return gameState.current_buy_in - player.bet;
+        if (player.bet > 0) {
+          return gameState.current_buy_in - player.bet;
+        }
+
+        return 0;
       };
 
 
       if (isPreFlop(gameState)) {
         respond(getPreFlopBet(gameState, player, new Hand(hand)));
       } else {
-        respond(gameState.current_buy_in - player.bet);
+        if (player.current_buy_in > 0) {
+          respond(0);
+        } else {
+          respond(gameState.current_buy_in - player.bet);
+        }
       }
 
 

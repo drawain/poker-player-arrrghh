@@ -18,7 +18,7 @@ describe('Player stability', function() {
 
     player.bet_request(state, responseMock);
 
-    expect(responseMessage).to.eql(0);
+    expect(responseMessage).to.eql("0");
   });
 
 });
